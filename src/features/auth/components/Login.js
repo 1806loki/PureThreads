@@ -1,23 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { selectError, selectLoggedInUser } from "../AuthSlice";
 import { Link, Navigate } from "react-router-dom";
+import { checkUserAsync } from "../AuthSlice";
 import { useForm } from "react-hook-form";
-import {
-  checkUserAsync,
-  selectErrorMessage,
-  selectLoggedInUser,
-} from "../AuthSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
-  const error = useSelector(selectErrorMessage);
+  const error = useSelector(selectError);
   const user = useSelector(selectLoggedInUser);
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  console.log(errors);
 
   return (
     <>
@@ -37,13 +35,17 @@ export default function Login() {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form
             noValidate
+            onSubmit={handleSubmit((data) => {
+              dispatch(
+                checkUserAsync({ email: data.email, password: data.password })
+              );
+            })}
             className="space-y-6"
-            onSubmit={handleSubmit((data) => dispatch(checkUserAsync(data)))}
           >
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900 flex "
+                className="block text-sm font-medium leading-6 text-gray-900"
               >
                 Email address
               </label>
@@ -52,15 +54,17 @@ export default function Login() {
                   id="email"
                   {...register("email", {
                     required: "email is required",
-                    pattern: {
-                      value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                      message: "email is not valid",
-                    },
+                    // pattern: {
+                    //   value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
+                    //   message: "email not valid",
+                    // },
                   })}
                   type="email"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                <p className="text-red-500">{errors?.email?.message}</p>
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
             </div>
 
@@ -73,12 +77,9 @@ export default function Login() {
                   Password
                 </label>
                 <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-indigo-600 hover:text-indigo-500"
-                  >
+                  <Link className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Forgot password?
-                  </a>
+                  </Link>
                 </div>
               </div>
               <div className="mt-2">
@@ -88,12 +89,13 @@ export default function Login() {
                     required: "password is required",
                   })}
                   type="password"
-                  autoComplete="true"
                   className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
-                <p className="text-red-500">{errors?.password?.message}</p>
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
-              <p className="text-red-500">{error?.message}</p>
+              {error && <p className="text-red-500">{error.message}</p>}
             </div>
 
             <div>
@@ -107,7 +109,7 @@ export default function Login() {
           </form>
 
           <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?
+            Not a member?{" "}
             <Link
               to="/signup"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"

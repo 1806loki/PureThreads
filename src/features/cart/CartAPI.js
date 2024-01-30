@@ -35,11 +35,11 @@ export function updateCart(update) {
 
 export function deleteItemFromCart(itemID) {
   return new Promise(async (resolve) => {
-    const response = await fetch("http://localhost:8080/cart?id=" + itemID, {
+    await fetch("http://localhost:8080/cart?id=" + itemID, {
       method: "POST",
       headers: { "content-type": "application/json" },
     });
-    const data = await response.json();
+
     resolve({ data: { id: itemID } });
   });
 }
