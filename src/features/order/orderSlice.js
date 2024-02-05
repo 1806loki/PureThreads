@@ -10,7 +10,6 @@ export const createOrderAsync = createAsyncThunk(
   "order/createOrder",
   async (order) => {
     const response = await createOrder(order);
-    // The value we return becomes the `fulfilled` action payload
     return response.data;
   }
 );
@@ -18,7 +17,11 @@ export const createOrderAsync = createAsyncThunk(
 export const counterSlice = createSlice({
   name: "order",
   initialState,
-
+  reducers: {
+    increment: (state) => {
+      state.value += 1;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createOrderAsync.pending, (state) => {
@@ -32,7 +35,5 @@ export const counterSlice = createSlice({
 });
 
 export const { increment } = counterSlice.actions;
-
-// export const selectCount = (state) => state.counter.value;
 
 export default counterSlice.reducer;
