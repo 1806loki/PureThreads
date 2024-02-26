@@ -3,12 +3,16 @@ import { StarIcon } from "@heroicons/react/20/solid";
 import { RadioGroup } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  fetchAllProductByIdAsync,
+  fetchProductByIdAsync,
   selectProductById,
-} from "../ProductListSlice";
+  selectProductListStatus,
+} from "../../ProductListSlice";
 import { Link, useParams } from "react-router-dom";
-import { addToCartAsync } from "../../cart/CartSlice";
-import { selectLoggedInUser } from "../../auth/AuthSlice";
+import { addToCartAsync, selectItems } from "../../../cart/CartSlice";
+import { discountedPrice } from "../../../../app/constant";
+import { useAlert } from "react-alert";
+import { Grid } from "react-loader-spinner";
+import { selectLoggedInUser } from "../../../auth/AuthSlice";
 
 // TODO: In server data we will add colors, sizes , highlights. to each product
 
@@ -44,27 +48,51 @@ function classNames(...classes) {
 export default function ProductDetail() {
   const [selectedColor, setSelectedColor] = useState(colors[0]);
   const [selectedSize, setSelectedSize] = useState(sizes[2]);
+  const user = useSelector(selectLoggedInUser);
+  const items = useSelector(selectItems);
   const product = useSelector(selectProductById);
   const dispatch = useDispatch();
   const params = useParams();
-  const user = useSelector(selectLoggedInUser);
-
-  useEffect(() => {
-    dispatch(fetchAllProductByIdAsync(params.id));
-  }, [dispatch, params.id]);
+  const alert = useAlert();
+  const status = useSelector(selectProductListStatus);
 
   const handleCart = (e) => {
     e.preventDefault();
-    const newItem = { ...product, quantity: 1, user: user.id };
-    console.log(newItem);
-    delete newItem["id"];
-    console.log(newItem);
-
-    dispatch(addToCartAsync({ ...product, quantity: 1, user }));
+    if (items.findIndex((item) => item.productId === product.id) < 0) {
+      console.log({ items, product });
+      const newItem = {
+        ...product,
+        productId: product.id,
+        quantity: 1,
+        user: user.id,
+      };
+      delete newItem["id"];
+      dispatch(addToCartAsync(newItem));
+      // TODO: it will be based on server response of backend
+      alert.error("Item added to Cart");
+    } else {
+      alert.error("Item Already added");
+    }
   };
+
+  useEffect(() => {
+    dispatch(fetchProductByIdAsync(params.id));
+  }, [dispatch, params.id]);
 
   return (
     <div className="bg-white">
+      {status === "loading" ? (
+        <Grid
+          height="80"
+          width="80"
+          color="rgb(79, 70, 229) "
+          ariaLabel="grid-loading"
+          radius="12.5"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={true}
+        />
+      ) : null}
       {product && (
         <div className="pt-6">
           <nav aria-label="Breadcrumb">
@@ -149,8 +177,11 @@ export default function ProductDetail() {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <p className="text-3xl tracking-tight text-gray-900">
+              <p className="text-xl line-through tracking-tight text-gray-900">
                 ${product.price}
+              </p>
+              <p className="text-3xl tracking-tight text-gray-900">
+                ${discountedPrice(product)}
               </p>
 
               {/* Reviews */}
@@ -298,6 +329,7 @@ export default function ProductDetail() {
 
                 <button
                   onClick={handleCart}
+                  type="submit"
                   className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                 >
                   Add to Cart
