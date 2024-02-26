@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import { addToCartAsync, selectItems } from "../../cart/cartSlice";
 import { useAlert } from "react-alert";
 import { Grid } from "react-loader-spinner";
+import { calculateDiscountPrice } from "../../../utils/functions/calculateDiscountPrice";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -152,7 +153,11 @@ export default function ProductDetail() {
                 ${product.price}
               </p>
               <p className="text-3xl tracking-tight text-gray-900">
-                ${product.discountPrice}
+                $
+                {calculateDiscountPrice(
+                  product.price,
+                  product.discountPercentage
+                )}
               </p>
 
               {/* Reviews */}

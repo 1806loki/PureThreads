@@ -21,9 +21,10 @@ import {
   PlusIcon,
   Squares2X2Icon,
 } from "@heroicons/react/20/solid";
- import Pagination from "../../common/Pagination";
+import Pagination from "../../common/Pagination";
 import { Grid } from "react-loader-spinner";
 import { ITEMS_PER_PAGE } from "../../../app/constant";
+import { calculateDiscountPrice } from "../../../utils/functions/calculateDiscountPrice";
 
 const sortOptions = [
   { name: "Best Rating", sort: "rating", order: "desc", current: false },
@@ -443,7 +444,11 @@ function ProductGrid({ products, status }) {
                   </div>
                   <div>
                     <p className="text-sm block font-medium text-gray-900">
-                      ${product.discountPrice}
+                      $
+                      {calculateDiscountPrice(
+                        product.price,
+                        product.discountPercentage
+                      )}
                     </p>
                     <p className="text-sm block line-through font-medium text-gray-400">
                       ${product.price}
