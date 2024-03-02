@@ -146,7 +146,7 @@ export default function Cart() {
           <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
             <div className="flex justify-between my-2 text-base font-medium text-gray-900">
               <p>Subtotal</p>
-              <p>$ {totalAmount}</p>
+              <p>$ {totalAmount.toFixed(2)}</p>
             </div>
             <div className="flex justify-between my-2 text-base font-medium text-gray-900">
               <p>Total Items in Cart</p>
@@ -163,9 +163,9 @@ export default function Cart() {
                 Checkout
               </Link>
             </div>
-            <div className="mt-6 flex justify-center text-center text-sm text-gray-500">
+            <div className="mt-6 flex  justify-center items-center text-center text-sm text-gray-500">
               <p>
-                or
+                or {"  "}
                 <Link to="/">
                   <button
                     type="button"

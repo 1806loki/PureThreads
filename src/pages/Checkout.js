@@ -34,7 +34,7 @@ function Checkout() {
   const totalAmount = items.reduce(
     (amount, item) => item.product.discountPrice * item.quantity + amount,
     0
-  );
+  ) ;
   const totalItems = items.reduce((total, item) => item.quantity + total, 0);
 
   const [selectedAddress, setSelectedAddress] = useState(null);

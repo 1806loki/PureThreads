@@ -4,6 +4,8 @@
   "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
+    "@dicebear/collection": "^7.0.5",
+    "@dicebear/core": "^7.0.5",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^2.1.1",
     "@reduxjs/toolkit": "^1.9.7",

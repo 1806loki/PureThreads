@@ -11,7 +11,6 @@ var _authAPI = require("./authAPI");
 
 var initialState = {
   loggedInUserToken: null,
-  // this should only contain user identity => 'id'/'role'
   status: "idle",
   error: null,
   userChecked: false,

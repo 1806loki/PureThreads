@@ -1,5 +1,5 @@
 import ProductForm from "../features/admin/components/ProductForm";
-import NavBar from "../features/navbar/Navbar";
+import NavBar from "../features/common/Navbar";
 function AdminProductFormPage() {
   return (
     <div>

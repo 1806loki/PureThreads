@@ -1,6 +1,6 @@
-import NavBar from "../features/navbar/Navbar";
 import ProductList from "../features/product/components/ProductList";
 import Footer from "../features/common/Footer";
+import NavBar from "../features/common/Navbar";
 
 function Home() {
   return (
