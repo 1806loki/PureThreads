@@ -18,11 +18,11 @@ function createUser(userData) {
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return regeneratorRuntime.awrap(fetch('/auth/signup', {
-              method: 'POST',
+            return regeneratorRuntime.awrap(fetch("/auth/signup", {
+              method: "POST",
               body: JSON.stringify(userData),
               headers: {
-                'content-type': 'application/json'
+                "content-type": "application/json"
               }
             }));
 
@@ -55,11 +55,11 @@ function loginUser(loginInfo) {
           case 0:
             _context2.prev = 0;
             _context2.next = 3;
-            return regeneratorRuntime.awrap(fetch('/auth/login', {
-              method: 'POST',
+            return regeneratorRuntime.awrap(fetch("/auth/login", {
+              method: "POST",
               body: JSON.stringify(loginInfo),
               headers: {
-                'content-type': 'application/json'
+                "content-type": "application/json"
               }
             }));
 
@@ -117,7 +117,7 @@ function checkAuth() {
           case 0:
             _context3.prev = 0;
             _context3.next = 3;
-            return regeneratorRuntime.awrap(fetch('/auth/check'));
+            return regeneratorRuntime.awrap(fetch("/auth/check"));
 
           case 3:
             response = _context3.sent;
@@ -173,7 +173,7 @@ function signOut(userId) {
           case 0:
             _context4.prev = 0;
             _context4.next = 3;
-            return regeneratorRuntime.awrap(fetch('/auth/logout'));
+            return regeneratorRuntime.awrap(fetch("/auth/logout"));
 
           case 3:
             response = _context4.sent;
@@ -184,7 +184,7 @@ function signOut(userId) {
             }
 
             resolve({
-              data: 'success'
+              data: "success"
             });
             _context4.next = 12;
             break;
@@ -225,13 +225,13 @@ function resetPasswordRequest(email) {
           case 0:
             _context5.prev = 0;
             _context5.next = 3;
-            return regeneratorRuntime.awrap(fetch('/auth/reset-password-request', {
-              method: 'POST',
+            return regeneratorRuntime.awrap(fetch("/auth/reset-password-request", {
+              method: "POST",
               body: JSON.stringify({
                 email: email
               }),
               headers: {
-                'content-type': 'application/json'
+                "content-type": "application/json"
               }
             }));
 
@@ -290,11 +290,11 @@ function resetPassword(data) {
           case 0:
             _context6.prev = 0;
             _context6.next = 3;
-            return regeneratorRuntime.awrap(fetch('/auth/reset-password', {
-              method: 'POST',
+            return regeneratorRuntime.awrap(fetch("/auth/reset-password", {
+              method: "POST",
               body: JSON.stringify(data),
               headers: {
-                'content-type': 'application/json'
+                "content-type": "application/json"
               }
             }));
 

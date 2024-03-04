@@ -9,10 +9,8 @@ function OrderSuccessPage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // reset cart
-    dispatch(resetCartAsync());
-    // reset currentOrder
-    dispatch(resetOrder());
+     dispatch(resetCartAsync());
+     dispatch(resetOrder());
   }, [dispatch]);
 
   return (

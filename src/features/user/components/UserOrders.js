@@ -6,6 +6,7 @@ import {
   selectUserOrders,
 } from "../userSlice";
 import { Grid } from "react-loader-spinner";
+import { calculateDiscountPrice } from "../../../utils/functions/calculateDiscountPrice";
 
 export default function UserOrders() {
   const dispatch = useDispatch();
@@ -15,7 +16,17 @@ export default function UserOrders() {
   useEffect(() => {
     dispatch(fetchLoggedInUserOrderAsync());
   }, [dispatch]);
-
+  const calculateTotalPrice = (order) => {
+    let totalPrice = 0;
+    order.items.forEach((item) => {
+      totalPrice +=
+        calculateDiscountPrice(
+          item.product.price,
+          item.product.discountPercentage
+        ) * item.quantity;
+    });
+    return totalPrice;
+  };
   return (
     <div>
       {orders &&
@@ -51,11 +62,16 @@ export default function UserOrders() {
                                   </a>
                                 </h3>
                                 <p className="ml-4">
-                                  ${item.product.discountPrice}
+                                  $
+                                  {calculateDiscountPrice(
+                                    item.product.price,
+                                    item.product.discountPercentage
+                                  )}
                                 </p>
                               </div>
                               <p className="mt-1 text-sm text-gray-500">
                                 {item.product.brand}
+                                (item.product.price,item.price.discountPercentage)
                               </p>
                             </div>
                             <div className="flex flex-1 items-end justify-between text-sm">
@@ -80,7 +96,7 @@ export default function UserOrders() {
                 <div className="border-t border-gray-200 px-4 py-6 sm:px-6">
                   <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                     <p>Subtotal</p>
-                    <p>$ {order.totalAmount.toFixed(2)}</p>
+                    <p>$ {calculateTotalPrice(order)}</p>
                   </div>
                   <div className="flex justify-between my-2 text-base font-medium text-gray-900">
                     <p>Total Items in Cart</p>

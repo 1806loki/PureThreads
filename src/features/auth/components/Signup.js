@@ -9,6 +9,7 @@ import { Navigate } from "react-router-dom";
 import { createAvatar } from "@dicebear/core";
 import { botttsNeutral } from "@dicebear/collection";
 import { useEffect, useState } from "react";
+import logo from "../../../assets/pureThreads.png";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -45,11 +46,8 @@ export default function Signup() {
       {user && <Navigate to="/" replace={true}></Navigate>}
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-10 w-auto"
-            src="/ectomere.png"
-            alt="Your Company"
-          />
+          <img className="mx-auto w-32" src={logo} alt="Pure Threads" />
+
           <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
             Create a New Account
           </h2>

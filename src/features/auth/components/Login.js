@@ -17,8 +17,14 @@ export default function Login() {
     formState: { errors },
   } = useForm();
 
-  const guestLogin = () => {
+  const userLogin = () => {
     dispatch(loginUserAsync({ email: "test@test.com", password: "Test1234" }));
+  };
+
+  const adminLogin = () => {
+    dispatch(
+      loginUserAsync({ email: "admin@admin.com", password: "Admin123" })
+    );
   };
 
   return (
@@ -105,14 +111,20 @@ export default function Login() {
 
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => guestLogin()}
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={() => userLogin()}
+                className="flex w-full justify-center rounded-md bg-green-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
               >
-                Login As Guest
+                Guest User Credentials
+              </button>
+              <button
+                onClick={() => adminLogin()}
+                className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+              >
+                Guest Admin Credentials
               </button>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Log in
               </button>

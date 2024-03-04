@@ -26,8 +26,7 @@ var addToCartAsync = (0, _toolkit.createAsyncThunk)('cart/addToCart', function _
 
         case 3:
           response = _context.sent;
-          alert.success('Item Added to Cart'); // The value we return becomes the `fulfilled` action payload
-
+          alert.success('Item Added to Cart');
           return _context.abrupt("return", response.data);
 
         case 6:

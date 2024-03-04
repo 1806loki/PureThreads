@@ -194,8 +194,7 @@ export default function AdminProductList() {
                 handleFilter={handleFilter}
                 filters={filters}
               ></DesktopFilter>
-              {/* Product grid */}
-
+ 
               <div className="lg:col-span-3">
                 <div>
                   <Link
@@ -207,12 +206,10 @@ export default function AdminProductList() {
                 </div>
                 <ProductGrid products={products}></ProductGrid>
               </div>
-              {/* Product grid end */}
-            </div>
+             </div>
           </section>
 
-          {/* section of product and filters ends */}
-          <Pagination
+           <Pagination
             page={page}
             setPage={setPage}
             handlePage={handlePage}
@@ -445,8 +442,7 @@ function Pagination({ page, setPage, handlePage, totalItems }) {
               <span className="sr-only">Previous</span>
               <ChevronLeftIcon className="h-5 w-5" aria-hidden="true" />
             </div>
-            {/* Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" */}
-
+ 
             {Array.from({ length: totalPages }).map((el, index) => (
               <div
                 key={index}

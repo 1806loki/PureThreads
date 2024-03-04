@@ -7,11 +7,9 @@ import CheckoutForm from "./CheckoutForm";
 import "../Stripe.css";
 import { selectCurrentOrder } from "../features/order/orderSlice";
 
-// Make sure to call loadStripe outside of a component’s render to avoid
-// recreating the Stripe object on every render.
-// This is your test publishable API key.
+ 
 const stripePromise = loadStripe(
-  "pk_test_51N5NLVSF2Mo4AGVvYGMMNnTcPA5lHrkUv8zPymsKfL31c8m6et8525Y92zMgA22m1u6ZkkXsBofre0PJL6i3eVsh00sR6M8c00"
+  "pk_test_51Oo0FeSEXkAdp7Von3XCsmN4s2gDPIjJK3b6l2nAinXA7BA61qsdcgRvf6P816WmJNPB1fbTw1oBRZtq4cIVDzrb00tPwXw6ky"
 );
 
 export default function StripeCheckout() {
@@ -19,8 +17,7 @@ export default function StripeCheckout() {
   const currentOrder = useSelector(selectCurrentOrder);
 
   useEffect(() => {
-    // Create PaymentIntent as soon as the page loads
-    fetch("/create-payment-intent", {
+     fetch("/create-payment-intent", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

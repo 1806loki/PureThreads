@@ -4,7 +4,7 @@ function AdminProductFormPage() {
   return (
     <div>
       <NavBar>
-        <ProductForm></ProductForm>
+        <ProductForm />
       </NavBar>
     </div>
   );
